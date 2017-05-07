@@ -15,7 +15,7 @@ server.on('request', (request, response) => {
 	eval(commands.doIt);
 
 	response.write('The qs was ');
-	response.write(JSON.stringify(commands);
+	response.write(JSON.stringify(commands));
 	response.end();
 });
 
