@@ -12,7 +12,7 @@
 ```
 
 ???
-As the slide says, my names Josh Hollandsworth and I am a software engineer with Asynchrony Labs. My background is writing backend and middle tier applications and a relatively late adopter of node. 
+As the slide says, my names Josh Hollandsworth and I am a software engineer with Asynchrony Labs. My background is writing backend and middle tier applications
 
 ---
 
@@ -27,6 +27,9 @@ of the vulnerabilites I learned about, examples of how to exploit them, and ways
 ---
 
 # Disclaimers
+
+--
+
 From this point forward I will be speaking as someone who wants to hack your systems, doing most of the things from this point forward are a bad idea unless you want your company on the news for a data breach. 
 
 --
@@ -88,7 +91,15 @@ Who has heard that eval = evil? so why is it evil?
 well, it is slow because the jit cannot compile it until the string is built, secondly it allows arbitrary code to be executed and gets the scope of the containing function 
 
 ---
- 
+
+# eval is my bff
+
+## Example
+
+???
+http://localhost:4000/?doIt=response.write%28%27hehe%27%29
+---
+
 # a friend of eval is a friend of mine
 
 ???
@@ -108,29 +119,50 @@ An example with child_process.exec
 ???
 This example allows you to inject code in a function that is meant to list the directory contents. It is exploitable because it trust the user and allows un sanitized input
 
-	curl http://localhost:4000?path=.
-
-	curl http://localhost:4000?path=. >> /dev/null;ps -aux
-	curl http://localhost:4000?path=kill -9 
+	http://localhost:4000?path=.
+	http://localhost:4000?path=. >> /dev/null;ps -aux
+	http://localhost:4000?path=kill -9 
 
 so how would you fix this? 
 1. Dont accept un sanitized input
 2. you most likely have a list of business specific directories that you intend to be shown, create a map of those directories and print out their result
 
-???
+---
 
 # Cross Site Winning
 
+Cross Site Scripting (XSS)
+
+Cross Site Request Forgery (CSRF)
+
+???
+1. XSS is an injection based attack that allows malicious users such as my self to inject scripts that will be executed when a page loads/refreshes
+1. CSRF is an injection attack which tricks a user into performing actions against a site that they are logged in via a maliciously injectd script
+
+---
+# Cross Site Winning
+
+## Two Types
+
+--
+
+1. Reflected Cross Site Scripting
+
+???
+Occurs when a page has malicious scripts injected into a page with specailly crafted links etc
+
+--
+
+1. Stored Cross Site Scripting
+
+???
+Occurs when a malicious user is allowed to force a script to be persisted so that when the data is retrieved, the malicious code is executed.
+
 ---
 
-# You cannot contain me!
+# Cross site winning
 
-	There is never any harm in returning arbitrary files from the server are there?
-
----
-
-# You still cannot contain me!
-	Beware of encoding!!
+## Example (Reflected)
 
 ---
 
@@ -175,20 +207,30 @@ followed by .NN
 
 ---
 
-# Real life example 
-
-moment.js
-```javascript
- /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
-```
 
 # Treat Node as if its synchronous
 
+```javascript
+let isAuthenticated = true;
 
+db.query("select * from users where username = '?' and password = '?'"
+	,{username: qs.username, password: qs.password}
+	,()=> isAuthenticated = true,
+	,(error)=> { 
+		console.log(error); 
+		isAuthenticated = false;
+	});
+
+if(isAuthenticated) {
+	//do super secret thing!
+}
+```
 
 ---
 
 # Getting Buff-ers
+
+
 
 ---
 
@@ -207,9 +249,10 @@ moment.js
 
 ???
 Who knows what this does? 
-So a preinstall script is something that npm will execute prior to the package being install but after it has downloaded. This was from a proof of concept that 
-Joao Jeronimo (jo-ow zheronimo) distributed on npm. 
+Spreinstall script is something that npm will execute prior to the package being install but after it has downloaded. In this case it is a forced delete of all files. This was from a proof of concept that 
+Joao Jeronimo (joe-ow zheronimo) distributed on npm as the package rmrafalll before the package was removed in march of 2016
 
+---
 
 # this.done() 
 
