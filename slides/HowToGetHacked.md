@@ -1,9 +1,10 @@
+class: center, middle
 # How to get hacked
 
 ???
 How to get hacked
 1. How to be dos'd or have your data stolen
-1. Laern cool or new during the process
+1. Learn cool or new during the process
 ---
 
 # About _self
@@ -33,7 +34,7 @@ of the vulnerabilites I learned about, examples of how to exploit them, and ways
 
 # Disclaimers
 
-??? 
+???
 Like any talk on security, its probably best to start off with some disclaimers
 --
 
@@ -73,7 +74,7 @@ So lets get started, anyone want to guess what rule number one is to insure you 
 1. Store all of your secrets in plain text 
 ???
 1 Crypto is slow, and since you used node you definitely are going for speed. Why add overhead
----
+--
 
 1. leave secret keys them as the default value.
 ???
@@ -103,7 +104,7 @@ _source xkcd_
 1. A great example of why you should trust users
 ---
 
-# eval is my bff
+# Eval is my bff
 
 Executes a string of arbitrary javascript
 
@@ -123,7 +124,7 @@ Executes a string of arbitrary javascript
 	
 ---
 
-# eval is my bff
+# Eval is my bff
 
 ## Example
 
@@ -133,7 +134,7 @@ http://localhost:4000/?doIt=whatcould%20go%20wrong
 http://localhost:4000/?doIt=response.write%28%27thisisfine%27%29
 ---
 
-# a friend of eval is a friend of mine
+# A friend of eval is a friend of mine
 
 ???
 1. While eval is my BFF it may not be yours
@@ -312,15 +313,35 @@ if(isAuthenticated) {
 1. the call back most likely wont be called when the if check is executed
 ---
 
-# Getting Buff-ers
+# Getting Buffers
 
+```javascript
+const buffer = new Buffer(1024);
+```
 
-
+???
+1. Buffers are the life blood of node i/o
+1. if you dont pass --zero-fill-buffer to node commandline then buffers do not initialize to all 0's
+1. This is slated to change in node 8
 ---
 
-# Ignore warnings, like you have since C
+# Getting Buffers
 
+## Example
+---
 
+# Ignore warnings
+
+```bash
+npm WARN deprecated tough-cookie@2.2.2: 
+ReDoS vulnerability parsing Set-Cookie https://nodesecurity.io/advisories/130
+```
+
+???
+1. If they're important they would be errors, right?
+1. Node security project 
+	1. command line tool to check dependencies
+1. Snyk use as part of build chain to check
 ---
 
 # Don't research your node modules.
@@ -333,13 +354,23 @@ if(isAuthenticated) {
 
 ???
 Who knows what this does? 
-Spreinstall script is something that npm will execute prior to the package being install but after it has downloaded. In this case it is a forced delete of all files. This was from a proof of concept that 
-Joao Jeronimo (joe-ow zheronimo) distributed on npm as the package rmrafalll before the package was removed in march of 2016
+1. A preinstall script executes after the package has been downloaded but before installation
+1. This was a proof of concept package called rimrafall
+	1. Submitted by Joao Jeronimo
+	1. Was on npm untill removed in march of 2016
+---
+
+# Don't visit these links
+1. Owasp - http://www.owasp.org
+1. Snyk - https://snyk.io
+1. Rising Stack Security check list - https://blog.risingstack.com/node-js-security-checklist/
 
 ---
 
-# this.done() 
+# this.done() 	
 
-Thank you!
+Source: https://github.com/joshholl/htgh-node
+
+Feedback: https://sayat.me/joshlholl
 
 
