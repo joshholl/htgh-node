@@ -73,10 +73,10 @@ So lets get started, anyone want to guess what rule number one is to insure you 
 
 1. Store all of your secrets in plain text 
 ???
-1 Crypto is slow, and since you used node you definitely are going for speed. Why add overhead
+1. Crypto is slow, and since you used node you definitely are going for speed. Why add overhead
 --
 
-1. leave secret keys them as the default value.
+1. Leave secret keys them as the default value.
 ???
 1. This can be api token names, csrf tokens etc
 1. Keeping them the default means less time searching if you forget
@@ -129,16 +129,16 @@ Executes a string of arbitrary javascript
 ## Example
 
 ???
-http://localhost:4000/?doIt=whatcould%20go%20wrong
+http://localhost:4000/?doIt=%22helloWorld%22
 
-http://localhost:4000/?doIt=response.write%28%27thisisfine%27%29
+http://localhost:4000/?doIt=response.write%28%27thisisfine%5cn%27%29
 ---
 
 # A friend of eval is a friend of mine
 
 ???
 1. While eval is my BFF it may not be yours
-1. Thankfully, eval has some friends besides me (I dont get to jealous because theyre just as usefel)
+1. Thankfully, eval has some friends besides me (I dont get to jealous because they're just as usefull)
 --
 1. setInterval
 1. setTimeout
@@ -245,7 +245,7 @@ Two types to deal with
 	Catastrophic backtracking
 
 ```javascript
-const salary = input.match(/[1-9]((,\d{3})|(\d)+)+(\.00)/);
+const salary = input.match(/[1-9]((,\d{3})|(\d)+)+(\.\d{2})/);
 ```
 
 ???
